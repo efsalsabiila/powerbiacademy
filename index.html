@@ -1,0 +1,635 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>PowerBI Academy — Learn Power BI the Smart Way</title>
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet"/>
+  <style>
+    :root {
+      --blue-50: #E6F1FB;
+      --blue-100: #B5D4F4;
+      --blue-400: #378ADD;
+      --blue-600: #185FA5;
+      --blue-800: #0C447C;
+      --blue-900: #042C53;
+      --amber: #EF9F27;
+      --green: #25D366;
+      --bg: #F7F9FC;
+      --white: #ffffff;
+      --text: #0D1B2A;
+      --muted: #5A7184;
+      --border: rgba(24,95,165,0.12);
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      overflow-x: hidden;
+    }
+
+    h1, h2, h3, h4, .logo { font-family: 'Syne', sans-serif; }
+
+    /* ── NAV ── */
+    nav {
+      position: sticky; top: 0; z-index: 100;
+      background: rgba(255,255,255,0.92);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+      padding: 0 5%;
+      display: flex; align-items: center; justify-content: space-between;
+      height: 68px;
+    }
+    .logo { font-size: 20px; font-weight: 700; color: var(--blue-600); letter-spacing: -0.5px; }
+    .logo span { color: var(--blue-400); }
+    .nav-links { display: flex; gap: 32px; list-style: none; }
+    .nav-links a { font-size: 14px; color: var(--muted); text-decoration: none; transition: color 0.2s; font-weight: 400; }
+    .nav-links a:hover { color: var(--blue-600); }
+    .nav-cta {
+      background: var(--blue-600); color: #fff;
+      padding: 10px 22px; border-radius: 8px;
+      font-size: 14px; font-weight: 500; border: none;
+      cursor: pointer; transition: background 0.2s; font-family: 'DM Sans', sans-serif;
+      text-decoration: none;
+    }
+    .nav-cta:hover { background: var(--blue-800); }
+    .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; }
+    .hamburger span { display: block; width: 22px; height: 2px; background: var(--text); border-radius: 2px; }
+
+    /* ── HERO ── */
+    .hero {
+      min-height: 88vh;
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      text-align: center; padding: 80px 5% 60px;
+      background: linear-gradient(160deg, #EBF4FF 0%, #F7F9FC 50%, #EBF4FF 100%);
+      position: relative; overflow: hidden;
+    }
+    .hero::before {
+      content: '';
+      position: absolute; top: -100px; right: -100px;
+      width: 500px; height: 500px;
+      background: radial-gradient(circle, rgba(55,138,221,0.12) 0%, transparent 70%);
+      border-radius: 50%;
+    }
+    .hero::after {
+      content: '';
+      position: absolute; bottom: -80px; left: -80px;
+      width: 400px; height: 400px;
+      background: radial-gradient(circle, rgba(24,95,165,0.08) 0%, transparent 70%);
+      border-radius: 50%;
+    }
+    .hero-badge {
+      display: inline-flex; align-items: center; gap: 6px;
+      background: var(--blue-50); color: var(--blue-800);
+      border: 1px solid var(--blue-100);
+      padding: 6px 16px; border-radius: 20px;
+      font-size: 13px; font-weight: 500; margin-bottom: 28px;
+      animation: fadeUp 0.6s ease both;
+    }
+    .hero-badge::before {
+      content: ''; width: 6px; height: 6px;
+      background: var(--blue-400); border-radius: 50%;
+    }
+    .hero h1 {
+      font-size: clamp(36px, 6vw, 68px);
+      font-weight: 700; line-height: 1.1;
+      color: var(--blue-900);
+      letter-spacing: -1.5px;
+      margin-bottom: 20px;
+      max-width: 780px;
+      animation: fadeUp 0.6s 0.1s ease both;
+    }
+    .hero h1 em { color: var(--blue-400); font-style: normal; }
+    .hero p {
+      font-size: 18px; color: var(--muted); line-height: 1.7;
+      max-width: 520px; margin-bottom: 40px; font-weight: 300;
+      animation: fadeUp 0.6s 0.2s ease both;
+    }
+    .hero-btns {
+      display: flex; gap: 12px; justify-content: center; flex-wrap: wrap;
+      animation: fadeUp 0.6s 0.3s ease both;
+    }
+    .btn-primary {
+      background: var(--blue-600); color: #fff;
+      padding: 14px 32px; border-radius: 8px;
+      font-size: 15px; font-weight: 500; border: none; cursor: pointer;
+      transition: background 0.2s, transform 0.15s; font-family: 'DM Sans', sans-serif;
+      text-decoration: none; display: inline-block;
+    }
+    .btn-primary:hover { background: var(--blue-800); transform: translateY(-1px); }
+    .btn-outline {
+      background: transparent; color: var(--blue-600);
+      padding: 14px 32px; border-radius: 8px;
+      font-size: 15px; font-weight: 500;
+      border: 1.5px solid var(--blue-600); cursor: pointer;
+      transition: background 0.2s, transform 0.15s; font-family: 'DM Sans', sans-serif;
+      text-decoration: none; display: inline-block;
+    }
+    .btn-outline:hover { background: var(--blue-50); transform: translateY(-1px); }
+    .hero-stats {
+      display: flex; gap: 40px; margin-top: 56px; flex-wrap: wrap; justify-content: center;
+      animation: fadeUp 0.6s 0.4s ease both;
+    }
+    .stat-item { text-align: center; }
+    .stat-num { font-size: 28px; font-weight: 700; color: var(--blue-600); font-family: 'Syne', sans-serif; }
+    .stat-label { font-size: 13px; color: var(--muted); margin-top: 2px; }
+
+    /* ── SECTIONS ── */
+    section { padding: 80px 5%; }
+    .section-tag {
+      display: inline-block;
+      font-size: 11px; font-weight: 600; letter-spacing: 0.1em;
+      text-transform: uppercase; color: var(--blue-600);
+      background: var(--blue-50); padding: 4px 12px;
+      border-radius: 4px; margin-bottom: 14px;
+    }
+    .section-title {
+      font-size: clamp(26px, 4vw, 38px); font-weight: 700;
+      letter-spacing: -0.8px; line-height: 1.2; margin-bottom: 10px;
+    }
+    .section-sub { font-size: 16px; color: var(--muted); max-width: 480px; line-height: 1.6; font-weight: 300; }
+    .section-header { margin-bottom: 48px; }
+
+    /* ── SERVICES ── */
+    #services { background: var(--white); }
+    .services-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+    .service-card {
+      border: 1px solid var(--border); border-radius: 16px;
+      padding: 32px; background: var(--white);
+      transition: border-color 0.2s, transform 0.2s;
+      position: relative; overflow: hidden;
+    }
+    .service-card::before {
+      content: '';
+      position: absolute; top: 0; left: 0; right: 0; height: 3px;
+      background: var(--blue-400); transform: scaleX(0);
+      transform-origin: left; transition: transform 0.3s;
+    }
+    .service-card:hover { border-color: var(--blue-100); transform: translateY(-4px); }
+    .service-card:hover::before { transform: scaleX(1); }
+    .service-icon {
+      width: 48px; height: 48px; border-radius: 12px;
+      background: var(--blue-50); display: flex; align-items: center; justify-content: center;
+      margin-bottom: 20px;
+    }
+    .service-icon svg { width: 22px; height: 22px; stroke: var(--blue-600); fill: none; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+    .service-card h3 { font-size: 18px; font-weight: 600; margin-bottom: 10px; }
+    .service-card p { font-size: 14px; color: var(--muted); line-height: 1.7; font-weight: 300; }
+    .service-tag {
+      display: inline-block; margin-top: 16px;
+      font-size: 12px; color: var(--blue-600);
+      background: var(--blue-50); padding: 3px 10px; border-radius: 4px;
+    }
+
+    /* ── PRICING ── */
+    #pricing { background: var(--bg); }
+    .pricing-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+    .price-card {
+      background: var(--white); border: 1px solid var(--border);
+      border-radius: 16px; padding: 32px;
+      transition: transform 0.2s;
+    }
+    .price-card:hover { transform: translateY(-4px); }
+    .price-card.featured {
+      border: 2px solid var(--blue-600);
+      background: var(--blue-900); color: #fff;
+    }
+    .price-label {
+      font-size: 11px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase;
+      color: var(--blue-400); margin-bottom: 8px;
+    }
+    .price-card.featured .price-label { color: var(--blue-100); }
+    .price-card h3 { font-size: 22px; font-weight: 700; margin-bottom: 6px; }
+    .price-card.featured h3 { color: #fff; }
+    .price-desc { font-size: 13px; color: var(--muted); margin-bottom: 20px; font-weight: 300; }
+    .price-card.featured .price-desc { color: var(--blue-100); }
+    .price-amount { font-size: 32px; font-weight: 700; color: var(--blue-600); font-family: 'Syne', sans-serif; }
+    .price-card.featured .price-amount { color: #fff; }
+    .price-per { font-size: 13px; color: var(--muted); font-weight: 400; }
+    .price-card.featured .price-per { color: var(--blue-100); }
+    .price-divider { border: none; border-top: 1px solid var(--border); margin: 20px 0; }
+    .price-card.featured .price-divider { border-color: rgba(255,255,255,0.15); }
+    .price-features { list-style: none; display: flex; flex-direction: column; gap: 10px; margin-bottom: 24px; }
+    .price-features li { font-size: 14px; color: var(--muted); display: flex; align-items: center; gap: 10px; font-weight: 300; }
+    .price-card.featured .price-features li { color: var(--blue-100); }
+    .check-icon { width: 18px; height: 18px; border-radius: 50%; background: var(--blue-50); display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+    .price-card.featured .check-icon { background: rgba(255,255,255,0.15); }
+    .check-icon svg { width: 10px; height: 10px; stroke: var(--blue-600); fill: none; stroke-width: 2.5; stroke-linecap: round; stroke-linejoin: round; }
+    .price-card.featured .check-icon svg { stroke: #fff; }
+    .btn-price-primary {
+      width: 100%; padding: 12px; border-radius: 8px; font-size: 14px;
+      font-weight: 500; cursor: pointer; font-family: 'DM Sans', sans-serif;
+      background: #fff; color: var(--blue-900); border: none;
+      transition: background 0.2s;
+    }
+    .btn-price-primary:hover { background: var(--blue-100); }
+    .btn-price-outline {
+      width: 100%; padding: 12px; border-radius: 8px; font-size: 14px;
+      font-weight: 500; cursor: pointer; font-family: 'DM Sans', sans-serif;
+      background: transparent; color: var(--blue-600);
+      border: 1.5px solid var(--blue-600); transition: background 0.2s;
+    }
+    .btn-price-outline:hover { background: var(--blue-50); }
+
+    /* ── TESTIMONIALS ── */
+    #testimonials { background: var(--white); }
+    .testi-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+    .testi-card {
+      border: 1px solid var(--border); border-radius: 16px;
+      padding: 28px; background: var(--white);
+      transition: transform 0.2s;
+    }
+    .testi-card:hover { transform: translateY(-3px); }
+    .stars { color: var(--amber); font-size: 14px; letter-spacing: 2px; margin-bottom: 14px; }
+    .testi-card p { font-size: 14px; color: var(--muted); line-height: 1.7; margin-bottom: 20px; font-style: italic; font-weight: 300; }
+    .testi-author { display: flex; align-items: center; gap: 12px; }
+    .avatar {
+      width: 40px; height: 40px; border-radius: 50%;
+      background: var(--blue-50); border: 1.5px solid var(--blue-100);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 13px; font-weight: 600; color: var(--blue-600);
+      flex-shrink: 0; font-family: 'Syne', sans-serif;
+    }
+    .testi-name { font-size: 14px; font-weight: 500; }
+    .testi-role { font-size: 12px; color: var(--muted); }
+
+    /* ── FAQ ── */
+    #faq { background: var(--bg); }
+    .faq-wrap { max-width: 720px; }
+    .faq-item {
+      border: 1px solid var(--border); border-radius: 12px;
+      margin-bottom: 12px; overflow: hidden;
+      background: var(--white);
+    }
+    .faq-q {
+      padding: 20px 24px; font-size: 15px; font-weight: 500;
+      cursor: pointer; display: flex; justify-content: space-between; align-items: center;
+      user-select: none;
+    }
+    .faq-arrow {
+      width: 20px; height: 20px; border-radius: 50%;
+      background: var(--blue-50); display: flex; align-items: center; justify-content: center;
+      transition: transform 0.3s; flex-shrink: 0;
+    }
+    .faq-arrow svg { width: 10px; height: 10px; stroke: var(--blue-600); fill: none; stroke-width: 2.5; stroke-linecap: round; }
+    .faq-item.open .faq-arrow { transform: rotate(180deg); }
+    .faq-a {
+      max-height: 0; overflow: hidden;
+      transition: max-height 0.35s ease, padding 0.2s;
+      font-size: 14px; color: var(--muted); line-height: 1.7;
+      padding: 0 24px; font-weight: 300;
+    }
+    .faq-item.open .faq-a { max-height: 200px; padding: 0 24px 20px; }
+
+    /* ── CTA ── */
+    #contact {
+      background: var(--blue-900); color: #fff;
+      text-align: center;
+    }
+    #contact .section-title { color: #fff; }
+    #contact .section-sub { color: var(--blue-100); max-width: 480px; margin: 0 auto 36px; }
+    .cta-btns { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
+    .btn-wa {
+      background: var(--green); color: #fff;
+      padding: 14px 28px; border-radius: 8px;
+      font-size: 15px; font-weight: 500; border: none; cursor: pointer;
+      display: flex; align-items: center; gap: 8px;
+      transition: opacity 0.2s; font-family: 'DM Sans', sans-serif;
+      text-decoration: none;
+    }
+    .btn-wa:hover { opacity: 0.9; }
+    .btn-wa-outline {
+      background: transparent; color: #fff;
+      padding: 14px 28px; border-radius: 8px;
+      font-size: 15px; font-weight: 500;
+      border: 1.5px solid rgba(255,255,255,0.3); cursor: pointer;
+      transition: background 0.2s; font-family: 'DM Sans', sans-serif;
+      text-decoration: none; display: inline-block;
+    }
+    .btn-wa-outline:hover { background: rgba(255,255,255,0.08); }
+
+    /* ── FOOTER ── */
+    footer {
+      background: #020F1C; padding: 32px 5%;
+      display: flex; justify-content: space-between; align-items: center;
+      flex-wrap: wrap; gap: 12px;
+    }
+    .footer-logo { font-family: 'Syne', sans-serif; font-size: 17px; font-weight: 700; color: var(--blue-100); }
+    .footer-logo span { color: var(--blue-400); }
+    .footer-copy { font-size: 13px; color: #4A6680; }
+
+    /* ── WHATSAPP FLOAT ── */
+    .wa-float {
+      position: fixed; bottom: 28px; right: 28px; z-index: 999;
+      background: var(--green); color: #fff;
+      padding: 14px 20px; border-radius: 50px;
+      font-size: 14px; font-weight: 500;
+      display: flex; align-items: center; gap: 8px;
+      box-shadow: 0 4px 20px rgba(37,211,102,0.35);
+      cursor: pointer; transition: transform 0.2s;
+      text-decoration: none;
+    }
+    .wa-float:hover { transform: translateY(-2px); }
+    .wa-float svg { width: 18px; height: 18px; flex-shrink: 0; }
+
+    /* ── ANIMATIONS ── */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 768px) {
+      .nav-links { display: none; }
+      .hamburger { display: flex; }
+      .services-grid, .pricing-grid, .testi-grid { grid-template-columns: 1fr; }
+      .hero h1 { font-size: 32px; }
+      .hero-stats { gap: 24px; }
+      .cta-btns { flex-direction: column; align-items: center; }
+      footer { flex-direction: column; text-align: center; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="logo">PowerBI<span>Academy</span></div>
+  <ul class="nav-links">
+    <li><a href="#services">Services</a></li>
+    <li><a href="#pricing">Pricing</a></li>
+    <li><a href="#testimonials">Testimonials</a></li>
+    <li><a href="#faq">FAQ</a></li>
+  </ul>
+  <a href="#contact" class="nav-cta">Contact Us</a>
+  <div class="hamburger" onclick="toggleMenu()">
+    <span></span><span></span><span></span>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-badge">Power BI Mentoring & Training</div>
+  <h1>Learn Power BI<br/><em>the Smart Way</em></h1>
+  <p>Private mentoring, group classes, and enterprise training to help you master data analytics and visualization with Microsoft Power BI.</p>
+  <div class="hero-btns">
+    <a href="#contact" class="btn-primary">Get Started Today</a>
+    <a href="#services" class="btn-outline">View Services</a>
+  </div>
+  <div class="hero-stats">
+    <div class="stat-item">
+      <div class="stat-num">200+</div>
+      <div class="stat-label">Students Trained</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-num">50+</div>
+      <div class="stat-label">Corporate Clients</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-num">4.9★</div>
+      <div class="stat-label">Average Rating</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-num">3+</div>
+      <div class="stat-label">Years Experience</div>
+    </div>
+  </div>
+</section>
+
+<!-- SERVICES -->
+<section id="services">
+  <div class="section-header">
+    <div class="section-tag">What We Offer</div>
+    <h2 class="section-title">Our Services</h2>
+    <p class="section-sub">Choose the learning format that fits your schedule and goals.</p>
+  </div>
+  <div class="services-grid">
+    <div class="service-card">
+      <div class="service-icon">
+        <svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+      </div>
+      <h3>Private Mentoring</h3>
+      <p>One-on-one sessions fully tailored to your pace, background, and goals. Learn with real case studies and flexible scheduling.</p>
+      <span class="service-tag">1-on-1 Session</span>
+    </div>
+    <div class="service-card">
+      <div class="service-icon">
+        <svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+      </div>
+      <h3>Group Class</h3>
+      <p>Learn alongside peers in structured sessions via Zoom. Includes recording access, module, and WhatsApp group support.</p>
+      <span class="service-tag">Up to 50 Participants</span>
+    </div>
+    <div class="service-card">
+      <div class="service-icon">
+        <svg viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg>
+      </div>
+      <h3>Enterprise Training</h3>
+      <p>Custom corporate training for your entire team. Flexible curriculum, delivered online or on-site, with e-certificates for all.</p>
+      <span class="service-tag">Min. 10 Participants</span>
+    </div>
+  </div>
+</section>
+
+<!-- PRICING -->
+<section id="pricing">
+  <div class="section-header">
+    <div class="section-tag">Pricing</div>
+    <h2 class="section-title">Transparent Pricing</h2>
+    <p class="section-sub">No hidden fees. Pick the plan that works best for you.</p>
+  </div>
+  <div class="pricing-grid">
+    <div class="price-card">
+      <div class="price-label">Starter</div>
+      <h3>Group Class</h3>
+      <p class="price-desc">Best for beginners looking to learn alongside others.</p>
+      <div class="price-amount">Rp 199.000</div>
+      <div class="price-per">per session</div>
+      <hr class="price-divider"/>
+      <ul class="price-features">
+        <li><span class="check-icon"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></span>Online via Zoom</li>
+        <li><span class="check-icon"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></span>Max 50 participants</li>
+        <li><span class="check-icon"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></span>WhatsApp group support</li>
+        <li><span class="check-icon"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></span>Session recording</li>
+        <li><span class="check-icon"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></span>E-certificate</li>
+      </ul>
+      <button class="btn-price-outline" onclick="window.open('https://wa.me/your-number','_blank')">Register Now</button>
+    </div>
+    <div class="price-card featured">
+      <div class="price-label">Most Popular</div>
+      <h3>Private Mentoring</h3>
+      <p class="price-desc">Best for professionals who want fast, focused progress.</p>
+      <div class="price-amount">Rp 399.000</div>
+      <div class="price-per">per session (2 hours)</div>
+      <hr class="price-divider"/>
+      <ul class="price-features">
+        <li><span class="check-icon"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></span>1-on-1 mentoring</li>
+        <li><span class="check-icon"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></span>Flexible schedule</li>
+        <li><span class="check-icon"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></span>Real case studies</li>
+        <li><span class="check-icon"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></span>Session recording</li>
+        <li><span class="check-icon"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></span>Softfile module included</li>
+      </ul>
+      <button class="btn-price-primary" onclick="window.open('https://wa.me/your-number','_blank')">Book a Session</button>
+    </div>
+    <div class="price-card">
+      <div class="price-label">Team</div>
+      <h3>Enterprise</h3>
+      <p class="price-desc">Best for companies wanting to upskill their teams.</p>
+      <div class="price-amount">Custom</div>
+      <div class="price-per">contact us for pricing</div>
+      <hr class="price-divider"/>
+      <ul class="price-features">
+        <li><span class="check-icon"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></span>Min. 10 participants</li>
+        <li><span class="check-icon"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></span>Online or on-site</li>
+        <li><span class="check-icon"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></span>Flexible curriculum</li>
+        <li><span class="check-icon"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></span>Hardcopy module</li>
+        <li><span class="check-icon"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></span>E-certificate for all</li>
+      </ul>
+      <button class="btn-price-outline" onclick="window.open('https://wa.me/your-number','_blank')">Contact Us</button>
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section id="testimonials">
+  <div class="section-header">
+    <div class="section-tag">Testimonials</div>
+    <h2 class="section-title">What Our Students Say</h2>
+    <p class="section-sub">Trusted by professionals across finance, marketing, operations, and more.</p>
+  </div>
+  <div class="testi-grid">
+    <div class="testi-card">
+      <div class="stars">★★★★★</div>
+      <p>"The private mentoring sessions were incredibly helpful. I built my first interactive dashboard in just 2 weeks!"</p>
+      <div class="testi-author">
+        <div class="avatar">AR</div>
+        <div>
+          <div class="testi-name">Andi Rahmat</div>
+          <div class="testi-role">Data Analyst, Finance</div>
+        </div>
+      </div>
+    </div>
+    <div class="testi-card">
+      <div class="stars">★★★★★</div>
+      <p>"Great mentor — very patient and always available for questions even after the session ends. Highly recommend!"</p>
+      <div class="testi-author">
+        <div class="avatar">SW</div>
+        <div>
+          <div class="testi-name">Siti Wulandari</div>
+          <div class="testi-role">Business Analyst</div>
+        </div>
+      </div>
+    </div>
+    <div class="testi-card">
+      <div class="stars">★★★★★</div>
+      <p>"Our whole team went from zero to building real-time dashboards in one month. The enterprise training was excellent."</p>
+      <div class="testi-author">
+        <div class="avatar">BP</div>
+        <div>
+          <div class="testi-name">Budi Prasetyo</div>
+          <div class="testi-role">IT Manager, BUMN</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section id="faq">
+  <div class="section-header">
+    <div class="section-tag">FAQ</div>
+    <h2 class="section-title">Frequently Asked Questions</h2>
+    <p class="section-sub">Everything you need to know before getting started.</p>
+  </div>
+  <div class="faq-wrap">
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFaq(this)">
+        Do I need prior experience with Power BI?
+        <div class="faq-arrow"><svg viewBox="0 0 12 12"><polyline points="2,4 6,8 10,4"/></svg></div>
+      </div>
+      <div class="faq-a">No experience needed! We have Basic, Intermediate, and Advanced modules for all skill levels. Complete beginners are very welcome.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFaq(this)">
+        How do I register for a session?
+        <div class="faq-arrow"><svg viewBox="0 0 12 12"><polyline points="2,4 6,8 10,4"/></svg></div>
+      </div>
+      <div class="faq-a">Simply click any Register or Contact button and reach us via WhatsApp. Our admin will guide you through the process and confirm your schedule.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFaq(this)">
+        Will sessions be recorded?
+        <div class="faq-arrow"><svg viewBox="0 0 12 12"><polyline points="2,4 6,8 10,4"/></svg></div>
+      </div>
+      <div class="faq-a">Yes! All sessions are recorded so you can rewatch at any time if you missed something or want to review the material again.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFaq(this)">
+        Can I get enterprise training for my whole team?
+        <div class="faq-arrow"><svg viewBox="0 0 12 12"><polyline points="2,4 6,8 10,4"/></svg></div>
+      </div>
+      <div class="faq-a">Absolutely. We offer flexible corporate training programs, both online and on-site, for a minimum of 10 participants. Contact us to discuss a custom curriculum.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFaq(this)">
+        What if I miss a session?
+        <div class="faq-arrow"><svg viewBox="0 0 12 12"><polyline points="2,4 6,8 10,4"/></svg></div>
+      </div>
+      <div class="faq-a">Don't worry — all sessions are recorded. For private mentoring, you can also reschedule with at least 24 hours notice.</div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section id="contact">
+  <div class="section-tag" style="background:rgba(255,255,255,0.1); color: var(--blue-100);">Get In Touch</div>
+  <h2 class="section-title" style="margin-top:14px;">Ready to Master Power BI?</h2>
+  <p class="section-sub">Join hundreds of professionals who have leveled up their data skills. Reach out and let's find the right plan for you.</p>
+  <div class="cta-btns">
+    <a href="https://wa.me/your-number" target="_blank" class="btn-wa">
+      <svg viewBox="0 0 24 24" fill="white"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+      Chat on WhatsApp
+    </a>
+    <a href="mailto:hello@powerbiacademy.com" class="btn-wa-outline">Send an Email</a>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-logo">PowerBI<span>Academy</span></div>
+  <div class="footer-copy">© 2025 PowerBI Academy. All rights reserved.</div>
+</footer>
+
+<!-- WHATSAPP FLOAT -->
+<a href="https://wa.me/your-number" target="_blank" class="wa-float">
+  <svg viewBox="0 0 24 24" fill="white"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+  WhatsApp
+</a>
+
+<script>
+  function toggleFaq(el) {
+    const item = el.parentElement;
+    const isOpen = item.classList.contains('open');
+    document.querySelectorAll('.faq-item').forEach(i => i.classList.remove('open'));
+    if (!isOpen) item.classList.add('open');
+  }
+
+  function toggleMenu() {
+    const links = document.querySelector('.nav-links');
+    links.style.display = links.style.display === 'flex' ? 'none' : 'flex';
+    links.style.flexDirection = 'column';
+    links.style.position = 'absolute';
+    links.style.top = '68px';
+    links.style.left = '0'; links.style.right = '0';
+    links.style.background = '#fff';
+    links.style.padding = '16px 5%';
+    links.style.borderBottom = '1px solid var(--border)';
+  }
+</script>
+</body>
+</html>
